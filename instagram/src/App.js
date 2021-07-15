@@ -97,7 +97,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="app">
     
       <Modal
         open={open} 
@@ -185,15 +185,24 @@ function App() {
       )}
       </div>
 
+      <div className="app_posts">
+            <div className="app_postsLeft">
+
+                {
+                  posts.map(({id, post}) => (
+                    <Post key={id} postId={post.id} user={user} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
+                  ))
+                }
+            </div>
+           
+
+      </div>
+
+      
+      
       
 
-      <h1>hello</h1>
 
-      {
-        posts.map(({id, post}) => (
-          <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
-        ))
-      }
       {user?.displayName ? (
         <ImageUpload username={user.displayName} />
       ):(

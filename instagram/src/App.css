@@ -2,17 +2,29 @@
   margin: 0;
 }
 .app {
-  background-color: rgb(161, 231, 231);
+  background-color: whitesmoke  ;
 }
 
 
 .app_header{
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background-color: white;
   padding: 5px;
   border-bottom: 0.7px solid cadetblue;
   object-fit: contain;
   display: flex;
   justify-content: space-between;
+}
+.app_posts {
+  padding: 20px;
+
+  display: flex;
+  justify-content: center;
+}
+.app_postsRight {
+  margin-left: 10px;
 }
 
 .app_headerImage{
