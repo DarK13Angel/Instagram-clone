@@ -5,6 +5,7 @@ import { auth, db } from './firebase.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core';
+import ImageUpload from './ImageUpload';
 
 
 function getModalStyle() {
@@ -60,7 +61,7 @@ function App() {
 
 
   useEffect(() => {
-    db.collection('posts').onSnapshot(snapshot => {
+    db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
       setPost(snapshot.docs.map(doc => ({
         id: doc.id,
         post: doc.data()
@@ -97,6 +98,7 @@ function App() {
 
   return (
     <div className="App">
+    
       <Modal
         open={open} 
         onClose={() => setOpen(false)}
@@ -172,25 +174,32 @@ function App() {
           height="45"
 
         />
-      </div>
+        {user ? (
+          <Button onClick={() => auth.signOut()}>Log out</Button>
+          ):(
+            <div className="app_loginContainer">
+            <Button onClick={() => setOpen(true)}>Signup</Button>
 
-      {user ? (
-        <Button onClick={() => auth.signOut()}>Log out</Button>
-      ):(
-        <div className="app_loginContainer">
-          <Button onClick={() => setOpen(true)}>Signup</Button>
-
-          <Button onClick={() => setOpenSignIn(true)}>Signin</Button>
+            <Button onClick={() => setOpenSignIn(true)}>Signin</Button>
         </div>
       )}
+      </div>
+
+      
 
       <h1>hello</h1>
 
       {
-        posts.map(({ id, post}) => (
+        posts.map(({id, post}) => (
           <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
         ))
       }
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ):(
+        <h3>You have to login first</h3>
+      )}
+
 
     </div>
   );

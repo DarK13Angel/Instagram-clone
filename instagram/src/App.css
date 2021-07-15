@@ -11,6 +11,12 @@
   padding: 5px;
   border-bottom: 0.7px solid cadetblue;
   object-fit: contain;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app_headerImage{
+  object-fit: contain;
 }
 
 .app_signup {
